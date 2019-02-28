@@ -1,0 +1,44 @@
+{
+  "name": "task",
+  "version": "1.0.0",
+  "main": "server/server.js",
+  "engines": {
+    "node": ">=6"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "start": "node .",
+    "posttest": "npm run lint",
+    "test": "mocha --exit"
+  },
+  "dependencies": {
+    "amqplib": "^0.5.3",
+    "compression": "^1.0.3",
+    "cors": "^2.5.2",
+    "firebase-admin": "^7.0.0",
+    "helmet": "^3.10.0",
+    "lodash": "^4.17.11",
+    "loopback": "^3.22.0",
+    "loopback-boot": "^2.6.5",
+    "loopback-component-explorer": "^6.2.0",
+    "loopback-connector-mongodb": "^3.9.2",
+    "serve-favicon": "^2.0.1",
+    "strong-error-handler": "^3.0.0"
+  },
+  "devDependencies": {
+    "assert": "^1.4.1",
+    "chai": "^4.2.0",
+    "chai-subset": "^1.6.0",
+    "eslint": "^3.17.1",
+    "eslint-config-loopback": "^8.0.0",
+    "mocha": "^6.0.1",
+    "sinon": "^7.2.4",
+    "supertest": "^3.4.2"
+  },
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "license": "UNLICENSED",
+  "description": "task"
+}

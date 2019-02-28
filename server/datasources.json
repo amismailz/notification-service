@@ -1,0 +1,10 @@
+{
+  "db": {
+    "host": "mongo",
+    "port": 27017,
+    "database": "notification",
+    "name": "db",
+    "allowExtendedOperators": true,
+    "connector": "mongodb"
+  }
+}

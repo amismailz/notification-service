@@ -1,0 +1,128 @@
+{
+  "name": "PushNotification",
+  "plural": "push-notifications",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "scope": {
+    "order": "sentAt DESC"
+  },
+  "properties": {
+    "fcmToken": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "string"
+    },
+    "topic": {
+      "type": "string"
+    },
+    "topicCondition": {
+      "type": "string"
+    },
+    "payload": {
+      "type": "object",
+      "required": true
+    },
+    "sentAt": {
+      "type": "date",
+      "required": true,
+      "default": "$now"
+    },
+    "success": {
+      "type": "boolean"
+    },
+    "seenAt": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {
+    "sendToToken": {
+      "accepts": [
+        {
+          "arg": "fcmToken",
+          "type": "string",
+          "required": true
+        },
+        {
+          "arg": "userId",
+          "type": "string",
+          "required": true
+        },
+        {
+          "arg": "payload",
+          "type": "object",
+          "required": true
+        }
+      ],
+      "returns": {
+        "arg": "res",
+        "type": "object",
+        "root": true,
+        "http": {
+          "source": "res"
+        }
+      },
+      "http": {
+        "verb": "post",
+        "path": "/send-to-token"
+      }
+    },
+    "sendToTopic": {
+      "accepts": [
+        {
+          "arg": "payload",
+          "type": "object",
+          "required": true
+        }
+      ],
+      "returns": {
+        "arg": "res",
+        "type": "object",
+        "root": true,
+        "http": {
+          "source": "res"
+        }
+      },
+      "http": {
+        "verb": "post",
+        "path": "/send-to-topic"
+      }
+    },
+    "listUserNotifications": {
+      "accepts": [
+        {
+          "arg": "userId",
+          "type": "string",
+          "required": true
+        },
+        {
+          "arg": "topic",
+          "type": "string"
+        },
+        {
+          "arg": "pagination",
+          "type": "object",
+          "description": "Pagination object e.g. {limit: 20, skip: 0}"
+        }
+      ],
+      "returns": {
+        "arg": "res",
+        "type": "object",
+        "root": true,
+        "http": {
+          "source": "res"
+        }
+      },
+      "http": {
+        "verb": "get",
+        "path": "/list-user-notifications"
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+## -------------------------- DOCKER-COMPOSE VERSION ---------------------------
+version: '3'
+
+## --------------------------------- SERVICES ----------------------------------
+services:
+    ## -------------------------------- API ---------------------------------
+  api:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    restart: always    
+    environment:
+      - NODE_ENV
+    volumes:
+      - ./:/api
+      - ./node_modules:/api/node_modules
+    ports:
+      - "3000:3000"
+    ## -------------------------------- DATABASE ---------------------------------
+  mongo:
+    image: mongo:3.4
+    restart: always
+    environment:
+      - STORAGE_ENGINE=wiredTiger
+      - AUTH=y
+      - ADMIN_USER=root
+      - ADMIN_PWD=root
+      - DATA_PATH=/data/db
+    volumes:
+      - /data/db:/data/db
+    expose:
+      - 27017
+
+       ## -------------------------------- RABBITMQ ---------------------------------
+  rabbitmq:
+    image: rabbitmq:3
+    restart: always
+    expose:
+      - 5672

@@ -1,0 +1,58 @@
+{
+  "name": "Sms",
+  "plural": "sms",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "phoneNumber": {
+      "type": "string",
+      "required": true
+    },
+    "message": {
+      "type": "string",
+      "required": true
+    },
+    "sentAt": {
+      "type": "date",
+      "required": true,
+      "default": "$now"
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {
+    "send": {
+      "accepts": [
+        {
+          "arg": "phoneNumbers",
+          "type": "array",
+          "required": true
+        },
+        {
+          "arg": "message",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "returns": {
+        "arg": "res",
+        "type": "object",
+        "root": true,
+        "http": {
+          "source": "res"
+        }
+      },
+      "http": {
+        "verb": "post",
+        "path": "/send"
+      }
+    }
+  }
+}

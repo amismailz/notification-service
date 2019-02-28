@@ -1,0 +1,21 @@
+{
+    "messageToToken": {
+        "fcmToken": "tokenabc123",
+        "userId": "userabc123",
+        "payload": {
+            "notification": {
+                "title": "notification title",
+                "body": "notification body"
+            }
+        }
+    },
+    "messageToTopic": {
+        "payload": {
+            "notification": {
+                "title": "test",
+                "body": "test body"
+            },
+            "topic": "topic1"
+        }
+    }
+}
