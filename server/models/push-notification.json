@@ -71,7 +71,8 @@
       "http": {
         "verb": "post",
         "path": "/send-to-token"
-      }
+      },
+      "description": "Send push notification to a specific user token"
     },
     "sendToTopic": {
       "accepts": [
@@ -92,7 +93,8 @@
       "http": {
         "verb": "post",
         "path": "/send-to-topic"
-      }
+      },
+      "description": "Send push notification to topic"
     },
     "listUserNotifications": {
       "accepts": [

@@ -12,6 +12,8 @@ COPY package.json yarn.lock  ./
 
 RUN yarn install
 
+# RUN npm i
+
 COPY ./ ./
 
 COPY ./docker/ecosystem.config.js /ecosystem.config.js

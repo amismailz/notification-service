@@ -11,7 +11,7 @@ const app = require('../server/server');
 const PushNotification = app.models.PushNotification;
 const mocks = require('../server/mocks/firebase.json')
 const data = require('./data/push-notification-data.json')
-
+const url = '/api/push-notifications/send-to-token';
 function json(verb, url) {
     return request(app)[verb](url)
         .set('Content-Type', 'application/json')
@@ -27,7 +27,7 @@ describe('PUSH NOTIFICATION TEST', () => {
     });
     describe('When sending to token', () => {
         it('Should send and save notification in case of valid request', (done) => {
-            json('post', '/api/push-notifications/send-to-token')
+            json('post', url)
                 .send(data.messageToToken)
                 .expect(200)
                 .end((err, res) => {
@@ -45,7 +45,7 @@ describe('PUSH NOTIFICATION TEST', () => {
         });
 
         it('Should not send or save notification if no fcmToken ', (done) => {
-            json('post', '/api/push-notifications/send-to-token')
+            json('post', url)
                 .send(_.omit(data.messageToToken, 'fcmToken'))
                 .expect(400)
                 .end((err, res) => {
@@ -65,7 +65,7 @@ describe('PUSH NOTIFICATION TEST', () => {
         });
 
         it('Should not send or save notification if no userId ', (done) => {
-            json('post', '/api/push-notifications/send-to-token')
+            json('post', url)
                 .send(_.omit(data.messageToToken, 'userId'))
                 .expect(400)
                 .end((err, res) => {
@@ -85,7 +85,7 @@ describe('PUSH NOTIFICATION TEST', () => {
         });
 
         it('Should not send or save notification if no payload ', (done) => {
-            json('post', '/api/push-notifications/send-to-token')
+            json('post', url)
                 .send(_.omit(data.messageToToken, 'payload'))
                 .expect(400)
                 .end((err, res) => {
@@ -106,7 +106,7 @@ describe('PUSH NOTIFICATION TEST', () => {
 
         it('Should not send or save notification if fcmToken is not valid string ', (done) => {
             data.messageToToken.fcmToken = {};
-            json('post', '/api/push-notifications/send-to-token')
+            json('post', url)
                 .send(data.messageToToken)
                 .expect(400)
                 .end((err, res) => {

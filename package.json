@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "start": "node .",
     "posttest": "npm run lint",
-    "test": "mocha --exit"
+    "test": "mocha --timeout 200000 --exit"
   },
   "dependencies": {
     "amqplib": "^0.5.3",
