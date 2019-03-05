@@ -8,6 +8,13 @@ const SMS_PATCH_COUNT = require('./constants').SMS_PATCH_COUNT;
 
 
 module.exports = (Sms) => {
+    /**
+   * Send SMS
+   * 
+   * @param {array} phoneNumbers array of phoneNumbers
+   * @param {function} cb callback function
+   * 
+   */
     Sms.send = function (phoneNumbers, message, cb) {
         amqp.connect('amqp://rabbitmq', function (err, conn) {
             if (err) return cb(err)
@@ -29,20 +36,21 @@ module.exports = (Sms) => {
                 const msgJson = JSON.parse(msg.content);
                 console.log('----------> ', msgJson, msg.fields);
                 SmsService.send(msgJson.phoneNumber, msgJson.message, (err, res) => {
+                    // Retry for one time incase of failure
                     if (err) {
                         return msg.fields.redelivered ?
-                        ch.nack(msg, false, false) && save(msgJson, err) : // nack and dont requeue
-                        ch.nack(msg, false, true); // nack and requeue
+                            ch.nack(msg, false, false) && save(msgJson, err) : // nack and dont requeue
+                            ch.nack(msg, false, true); // nack and requeue
                     }
-                ch.ack(msg);
-                save(msgJson);
+                    ch.ack(msg);
+                    save(msgJson);
                 })
             }, { noAck: false })
         }
-    
+
         const save = (msgJson, err) => {
             const status = err ? 'error' : 'success';
-            Sms.create({...msgJson, status});
+            Sms.create({ ...msgJson, status });
         }
     }
 }
