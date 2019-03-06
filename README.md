@@ -1,9 +1,9 @@
 ## Notification Service
-A standalone service has features to send notifications not mobile either by push notification or SMS.
+A standalone service has features to send notifications to mobile phones either by push notification or SMS.
 
 **Technology stack:**
 
-- The service is build in docker containers
+ - The service is built in docker containers
  - API is built with **Loopback** nodejs api framework
  - MongoDB
  - RabbitMQ
